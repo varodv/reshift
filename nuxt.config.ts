@@ -7,4 +7,9 @@ export default defineNuxtConfig({
   typescript: {
     typeCheck: true,
   },
+  app: {
+    head: {
+      title: 'reshift',
+    },
+  },
 });
