@@ -3,6 +3,7 @@
   "type": "module",
   "version": "0.0.0",
   "private": true,
+  "packageManager": "pnpm@10.20.0",
   "engines": {
     "node": "^24.11",
     "pnpm": "^10"
@@ -22,6 +23,8 @@
     "coverage": "vitest run --coverage"
   },
   "dependencies": {
+    "@vueuse/core": "14.0.0",
+    "@vueuse/nuxt": "14.0.0",
     "nuxt": "4.2.0",
     "vue": "3.5.22",
     "vue-router": "4.6.3"
