@@ -3,7 +3,7 @@ export default defineNuxtConfig({
   devtools: {
     enabled: true,
   },
-  modules: ['@nuxt/test-utils/module', '@vueuse/nuxt'],
+  modules: ['@nuxt/test-utils/module', '@vueuse/nuxt', '@nuxtjs/tailwindcss', 'shadcn-nuxt'],
   typescript: {
     typeCheck: true,
   },
@@ -13,4 +13,8 @@ export default defineNuxtConfig({
     },
   },
   ssr: false,
+  shadcn: {
+    prefix: '',
+    componentDir: './components/ui',
+  },
 });
