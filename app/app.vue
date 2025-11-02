@@ -80,21 +80,25 @@ function getActivityName(activityId: Activity['id']) {
             Activity
           </th>
           <th style="width: calc(50% - 20px)">
+            <svg width="8" height="8" viewBox="0 0 30.727 30.727">
+              <path
+                d="M29.994,10.183L15.363,24.812L0.733,10.184c-0.977-0.978-0.977-2.561,0-3.536
+                  c0.977-0.977,2.559-0.976,3.536,0
+                  l11.095,11.093L26.461,6.647c0.977-0.976,2.559-0.976,3.535,0
+                  C30.971,7.624,30.971,9.206,29.994,10.183z"
+              />
+            </svg>
             Date
           </th>
-          <th style="width: 40px">
-            <button
-              style="width: 100%"
-              :disabled="!filteredLogData.length"
-              @click="filteredLogData.forEach((log) => removeLog(log.id))"
-            >
-              x
-            </button>
-          </th>
+          <th style="width: 40px" />
         </tr>
       </thead>
       <tbody style="display: flex; flex-direction: column">
-        <tr v-for="log in filteredLogData" :key="log.id" style="display: flex; align-items: center">
+        <tr
+          v-for="log in filteredLogData.reverse()"
+          :key="log.id"
+          style="display: flex; align-items: center; margin-top: 8px"
+        >
           <td style="width: calc(50% - 20px); text-align: center">
             {{ getActivityName(log.activity) }}
           </td>
@@ -102,7 +106,11 @@ function getActivityName(activityId: Activity['id']) {
             {{ new Date(log.timestamp).toLocaleString() }}
           </td>
           <td style="width: 40px">
-            <button style="width: 100%" @click="removeLog(log.id)">
+            <button
+              v-if="log.id === logData[logData.length - 1]!.id"
+              style="width: 100%"
+              @click="removeLog(log.id)"
+            >
               x
             </button>
           </td>
