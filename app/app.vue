@@ -2,7 +2,7 @@
 import type { Activity } from './types';
 
 const { data: activityData } = useActivity();
-const { data: logData, create: createLog } = useLog();
+const { data: logData, create: createLog, remove: removeLog } = useLog();
 
 const selectedActivityId = ref(activityData.value[0]!.id);
 
@@ -75,22 +75,36 @@ function getActivityName(activityId: Activity['id']) {
     </div>
     <table style="display: flex; flex-direction: column; width: 100%; max-width: 400px">
       <thead style="display: flex; flex-direction: column">
-        <tr style="display: flex">
-          <th style="width: 50%">
+        <tr style="display: flex; align-items: center">
+          <th style="width: calc(50% - 20px)">
             Activity
           </th>
-          <th style="width: 50%">
+          <th style="width: calc(50% - 20px)">
             Date
+          </th>
+          <th style="width: 40px">
+            <button
+              style="width: 100%"
+              :disabled="!filteredLogData.length"
+              @click="filteredLogData.forEach((log) => removeLog(log.id))"
+            >
+              x
+            </button>
           </th>
         </tr>
       </thead>
       <tbody style="display: flex; flex-direction: column">
-        <tr v-for="log in filteredLogData" :key="log.id" style="display: flex">
-          <td style="width: 50%; text-align: center">
+        <tr v-for="log in filteredLogData" :key="log.id" style="display: flex; align-items: center">
+          <td style="width: calc(50% - 20px); text-align: center">
             {{ getActivityName(log.activity) }}
           </td>
-          <td style="width: 50%; text-align: center">
+          <td style="width: calc(50% - 20px); text-align: center">
             {{ new Date(log.timestamp).toLocaleString() }}
+          </td>
+          <td style="width: 40px">
+            <button style="width: 100%" @click="removeLog(log.id)">
+              x
+            </button>
           </td>
         </tr>
       </tbody>

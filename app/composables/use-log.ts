@@ -11,8 +11,13 @@ export function useLog() {
     return newLog;
   }
 
+  function remove(id: Log['id']) {
+    data.value = data.value.filter(log => log.id !== id);
+  }
+
   return {
     data,
     create,
+    remove,
   };
 }
