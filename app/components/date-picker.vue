@@ -1,0 +1,71 @@
+<script setup lang="ts">
+import type { CalendarDate } from '@internationalized/date';
+import type { HTMLAttributes } from 'vue';
+import { DateFormatter, getLocalTimeZone, isToday, today } from '@internationalized/date';
+import { CalendarIcon, ChevronLeft, ChevronRight } from 'lucide-vue-next';
+import { useForwardPropsEmits } from 'reka-ui';
+import { cn } from '@/lib/utils';
+
+const props = defineProps<{
+  modelValue: CalendarDate;
+  class?: HTMLAttributes['class'];
+}>();
+
+const emits = defineEmits<{
+  'update:modelValue': [value: CalendarDate];
+}>();
+
+const calendarForwardedProps = useForwardPropsEmits(reactiveOmit(props, 'class'), emits);
+
+const locale = navigator.language;
+
+const df = new DateFormatter(locale, {
+  dateStyle: 'full',
+});
+</script>
+
+<template>
+  <div :class="cn('flex items-center justify-center gap-2', props.class)">
+    <UiPopover>
+      <UiPopoverTrigger as-child>
+        <UiButton variant="outline" class="grow w-0 max-w-80 font-normal">
+          <CalendarIcon class="size-4" />
+          <span class="truncate">
+            {{ df.format(props.modelValue.toDate(getLocalTimeZone())) }}
+          </span>
+        </UiButton>
+      </UiPopoverTrigger>
+      <UiPopoverContent class="w-auto p-0">
+        <UiCalendar
+          v-bind="calendarForwardedProps"
+          :locale="locale"
+          prevent-deselect
+          initial-focus
+        />
+      </UiPopoverContent>
+    </UiPopover>
+    <div class="flex gap-1">
+      <UiButton
+        variant="secondary"
+        size="icon"
+        @click="() => emits('update:modelValue', props.modelValue.subtract({ days: 1 }))"
+      >
+        <ChevronLeft />
+      </UiButton>
+      <UiButton
+        variant="secondary"
+        size="icon"
+        @click="() => emits('update:modelValue', props.modelValue.add({ days: 1 }))"
+      >
+        <ChevronRight />
+      </UiButton>
+    </div>
+    <UiButton
+      variant="secondary"
+      :disabled="isToday(props.modelValue, getLocalTimeZone())"
+      @click="() => emits('update:modelValue', today(getLocalTimeZone()))"
+    >
+      Today
+    </UiButton>
+  </div>
+</template>
