@@ -1,0 +1,32 @@
+<script setup lang="ts">
+import type { HTMLAttributes } from 'vue';
+import { reactiveOmit } from '@vueuse/core';
+import { cn } from '@/lib/utils';
+import TableCell from './TableCell.vue';
+import TableRow from './TableRow.vue';
+
+const props = withDefaults(
+  defineProps<{
+    class?: HTMLAttributes['class'];
+    colspan?: number;
+  }>(),
+  {
+    colspan: 1,
+  },
+);
+
+const delegatedProps = reactiveOmit(props, 'class');
+</script>
+
+<template>
+  <TableRow>
+    <TableCell
+      :class="cn('w-full p-4 text-sm text-foreground', props.class)"
+      v-bind="delegatedProps"
+    >
+      <div class="w-full py-10 text-center truncate">
+        <slot />
+      </div>
+    </TableCell>
+  </TableRow>
+</template>
