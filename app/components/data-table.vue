@@ -27,7 +27,6 @@ const table = useVueTable({
         <UiTableHead
           v-for="header in headerGroup.headers"
           :key="header.id"
-          :style="{ width: `${100 / columns.length}%` }"
         >
           <FlexRender
             v-if="!header.isPlaceholder"
@@ -47,7 +46,6 @@ const table = useVueTable({
           <UiTableCell
             v-for="cell in row.getVisibleCells()"
             :key="cell.id"
-            :style="{ width: `${100 / columns.length}%` }"
           >
             <FlexRender :render="cell.column.columnDef.cell" :props="cell.getContext()" />
           </UiTableCell>
