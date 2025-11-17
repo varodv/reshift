@@ -17,18 +17,21 @@ const emits = defineEmits<{
 
 const calendarForwardedProps = useForwardPropsEmits(reactiveOmit(props, 'class'), emits);
 
-const locale = navigator.language;
+const locale = 'en-US';
 
 const df = new DateFormatter(locale, {
-  dateStyle: 'full',
+  year: 'numeric',
+  month: 'short',
+  day: 'numeric',
+  weekday: 'short',
 });
 </script>
 
 <template>
-  <div :class="cn('flex items-center justify-center gap-2', props.class)">
+  <div :class="cn('flex items-center gap-2', props.class)">
     <UiPopover>
       <UiPopoverTrigger as-child>
-        <UiButton variant="outline" class="grow w-0 max-w-80 font-normal">
+        <UiButton variant="outline" class="grow w-0 font-normal">
           <CalendarIcon class="size-4" />
           <span class="truncate">
             {{ df.format(props.modelValue.toDate(getLocalTimeZone())) }}
