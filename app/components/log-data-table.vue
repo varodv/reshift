@@ -13,24 +13,15 @@ const { data: activityData } = useActivity();
 const columns: Array<ColumnDef<Log>> = [
   {
     accessorKey: 'activity',
-    header: () =>
-      h('span', { class: 'grow text-center truncate' }, 'Activity'),
+    header: () => h('span', { class: 'grow text-center truncate' }, 'Activity'),
     cell: ({ getValue }: any) =>
-      h(
-        'span',
-        { class: 'grow text-center truncate' },
-        getActivityName(getValue()),
-      ),
+      h('span', { class: 'grow text-center truncate' }, getActivityName(getValue())),
   },
   {
     accessorKey: 'timestamp',
     header: () => h('span', { class: 'grow text-center truncate' }, 'Time'),
     cell: ({ getValue }: any) =>
-      h(
-        'span',
-        { class: 'grow text-center truncate' },
-        new Date(getValue()).toLocaleTimeString(),
-      ),
+      h('span', { class: 'grow text-center truncate' }, new Date(getValue()).toLocaleTimeString()),
   },
 ];
 
