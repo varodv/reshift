@@ -27,7 +27,7 @@ function onRemoveSelectedLog() {
 </script>
 
 <template>
-  <div class="flex flex-col h-screen gap-4 p-4">
+  <div class="flex flex-col h-full gap-4 p-4">
     <DatePicker v-model="selectedDateValue" />
     <LogDataTable class="grow" :data="filteredLogData" @item-click="selectedLog = $event">
       <template #empty-content>
@@ -67,3 +67,11 @@ function onRemoveSelectedLog() {
   </div>
   <UiSonner position="bottom-center" />
 </template>
+
+<style>
+html,
+body,
+#__nuxt {
+  height: 100%;
+}
+</style>
