@@ -15,12 +15,12 @@ const emits = defineEmits<{
   <UiDrawer :open="!!item" @update:open="!$event && emits('close')">
     <UiDrawerContent>
       <UiDrawerHeader>
-        <UiDrawerTitle>Delete log</UiDrawerTitle>
+        <UiDrawerTitle>Remove log</UiDrawerTitle>
         <UiDrawerDescription> This action cannot be undone. </UiDrawerDescription>
       </UiDrawerHeader>
       <UiDrawerFooter>
         <UiButton variant="destructive" @click="emits('remove')">
-          Delete
+          Remove
         </UiButton>
       </UiDrawerFooter>
     </UiDrawerContent>

@@ -22,7 +22,7 @@ const filteredLogData = computed(() =>
 function onRemoveSelectedLog() {
   removeLog(selectedLog.value!.id);
   selectedLog.value = undefined;
-  toast.success('Log deleted');
+  toast.success('Log removed');
 }
 </script>
 
