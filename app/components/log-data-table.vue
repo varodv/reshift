@@ -8,6 +8,10 @@ const props = defineProps<{
   class?: HTMLAttributes['class'];
 }>();
 
+const emits = defineEmits<{
+  itemClick: [item: Log];
+}>();
+
 const { data: activityData } = useActivity();
 
 const columns: Array<ColumnDef<Log>> = [
@@ -31,7 +35,12 @@ function getActivityName(activityId: Activity['id']) {
 </script>
 
 <template>
-  <DataTable :class="props.class" :columns="columns" :data="data">
+  <DataTable
+    :class="props.class"
+    :columns="columns"
+    :data="data"
+    @item-click="emits('itemClick', $event)"
+  >
     <template #empty>
       <UiTableEmpty :colspan="columns.length">
         <slot name="empty-content">

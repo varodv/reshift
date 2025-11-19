@@ -9,6 +9,10 @@ const props = defineProps<{
   class?: HTMLAttributes['class'];
 }>();
 
+const emits = defineEmits<{
+  itemClick: [item: DataItemType];
+}>();
+
 const table = useVueTable({
   get columns() {
     return props.columns;
@@ -39,6 +43,7 @@ const table = useVueTable({
           v-for="row in table.getRowModel().rows"
           :key="row.id"
           :data-state="row.getIsSelected() ? 'selected' : undefined"
+          @click="emits('itemClick', row.original)"
         >
           <UiTableCell v-for="cell in row.getVisibleCells()" :key="cell.id">
             <FlexRender :render="cell.column.columnDef.cell" :props="cell.getContext()" />

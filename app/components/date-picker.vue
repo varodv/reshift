@@ -34,7 +34,7 @@ const df = new DateFormatter(locale, {
         <UiButton variant="outline" class="grow w-0 font-normal">
           <CalendarIcon class="size-4" />
           <span class="truncate">
-            {{ df.format(props.modelValue.toDate(getLocalTimeZone())) }}
+            {{ df.format(modelValue.toDate(getLocalTimeZone())) }}
           </span>
         </UiButton>
       </UiPopoverTrigger>
@@ -51,21 +51,21 @@ const df = new DateFormatter(locale, {
       <UiButton
         variant="secondary"
         size="icon"
-        @click="() => emits('update:modelValue', props.modelValue.subtract({ days: 1 }))"
+        @click="() => emits('update:modelValue', modelValue.subtract({ days: 1 }))"
       >
         <ChevronLeft />
       </UiButton>
       <UiButton
         variant="secondary"
         size="icon"
-        @click="() => emits('update:modelValue', props.modelValue.add({ days: 1 }))"
+        @click="() => emits('update:modelValue', modelValue.add({ days: 1 }))"
       >
         <ChevronRight />
       </UiButton>
     </div>
     <UiButton
       variant="secondary"
-      :disabled="isToday(props.modelValue, getLocalTimeZone())"
+      :disabled="isToday(modelValue, getLocalTimeZone())"
       @click="() => emits('update:modelValue', today(getLocalTimeZone()))"
     >
       Today
