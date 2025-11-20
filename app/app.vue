@@ -4,6 +4,15 @@ import { fromDate, getLocalTimeZone, isSameDay, today } from '@internationalized
 import { toast } from 'vue-sonner';
 import 'vue-sonner/style.css';
 
+useHead({
+  meta: [
+    {
+      name: 'viewport',
+      content: 'width=device-width, initial-scale=1, maximum-scale=1',
+    },
+  ],
+});
+
 const { data: activityData } = useActivity();
 const { data: logData, create: createLog, remove: removeLog } = useLog();
 
