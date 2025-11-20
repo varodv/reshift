@@ -83,4 +83,8 @@ body,
 #__nuxt {
   height: 100%;
 }
+
+:root {
+  touch-action: pan-x pan-y;
+}
 </style>
