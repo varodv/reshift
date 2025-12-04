@@ -17,9 +17,9 @@ const emits = defineEmits<{
 
 const calendarForwardedProps = useForwardPropsEmits(reactiveOmit(props, 'class'), emits);
 
-const locale = 'en-US';
+const { locale } = useI18n();
 
-const df = new DateFormatter(locale, {
+const df = new DateFormatter(locale.value, {
   year: 'numeric',
   month: 'short',
   day: 'numeric',
@@ -64,11 +64,12 @@ const df = new DateFormatter(locale, {
       </UiButton>
     </div>
     <UiButton
+      class="capitalize"
       variant="secondary"
       :disabled="isToday(modelValue, getLocalTimeZone())"
       @click="() => emits('update:modelValue', today(getLocalTimeZone()))"
     >
-      Today
+      {{ $t('today') }}
     </UiButton>
   </div>
 </template>
