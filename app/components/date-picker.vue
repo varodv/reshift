@@ -12,7 +12,7 @@ const props = defineProps<{
 }>();
 
 const emits = defineEmits<{
-  'update:modelValue': [value: CalendarDate];
+  'update:modelValue': [newModelValue: CalendarDate];
 }>();
 
 const calendarForwardedProps = useForwardPropsEmits(reactiveOmit(props, 'class'), emits);
