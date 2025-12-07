@@ -1,3 +1,26 @@
 {
-  "today": "today"
+  "today": "today",
+  "log": {
+    "empty": {
+      "date": "No logs for the selected date."
+    },
+    "activity": {
+      "placeholder": "Select an activity",
+      "stop": "STOP"
+    },
+    "create": {
+      "title": "Add log",
+      "action": "Add",
+      "success": "Log added"
+    },
+    "update": {
+      "title": "Manage log",
+      "action": "Edit",
+      "success": "Log edited"
+    },
+    "remove": {
+      "action": "Remove",
+      "success": "Log removed"
+    }
+  }
 }

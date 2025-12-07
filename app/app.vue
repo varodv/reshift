@@ -1,15 +1,13 @@
 <script setup lang="ts">
 import type { Log } from './types';
-import { fromDate, getLocalTimeZone, isSameDay, today } from '@internationalized/date';
+import { fromDate, getLocalTimeZone, isSameDay, isToday, today } from '@internationalized/date';
+import { Plus } from 'lucide-vue-next';
 import { toast } from 'vue-sonner';
 import 'vue-sonner/style.css';
 
-const { data: activityData } = useActivity();
-const { data: logData, create: createLog, remove: removeLog } = useLog();
+const { data: logData, create: createLog, update: updateLog, remove: removeLog } = useLog();
 
 const selectedDateValue = ref(today(getLocalTimeZone()) as any);
-
-const selectedActivityId = ref(activityData.value[0]?.id);
 
 const selectedLog = ref<Log | undefined>();
 
@@ -19,10 +17,22 @@ const filteredLogData = computed(() =>
   ),
 );
 
-function onRemoveSelectedLog() {
+function onCreateLog(payload: Log) {
+  createLog(payload);
+  selectedLog.value = undefined;
+  toast.success($t('log.create.success'));
+}
+
+function onUpdateLog(payload: Log) {
+  updateLog(payload);
+  selectedLog.value = undefined;
+  toast.success($t('log.update.success'));
+}
+
+function onRemoveLog() {
   removeLog(selectedLog.value!.id);
   selectedLog.value = undefined;
-  toast.success('Log removed');
+  toast.success($t('log.remove.success'));
 }
 </script>
 
@@ -31,39 +41,31 @@ function onRemoveSelectedLog() {
     <DatePicker v-model="selectedDateValue" />
     <LogDataTable class="grow" :data="filteredLogData" @item-click="selectedLog = $event">
       <template #empty-content>
-        No logs for the selected date.
+        {{ $t('log.empty.date') }}
       </template>
     </LogDataTable>
-    <LogDrawer :item="selectedLog" @close="selectedLog = undefined" @remove="onRemoveSelectedLog" />
-    <div class="flex items-center gap-2">
-      <UiButton
-        class="min-w-24"
-        variant="destructive"
-        :disabled="!logData.length || logData[logData.length - 1]!.activity === 'STOP'"
-        @click="createLog({ activity: 'STOP', timestamp: Date.now() })"
-      >
-        stop
-      </UiButton>
-      <UiSelect v-model="selectedActivityId">
-        <UiSelectTrigger class="grow">
-          <UiSelectValue placeholder="Select an activity" />
-        </UiSelectTrigger>
-        <UiSelectContent>
-          <UiSelectItem v-for="activity in activityData" :key="activity.id" :value="activity.id">
-            {{ activity.name }}
-          </UiSelectItem>
-        </UiSelectContent>
-      </UiSelect>
-      <UiButton
-        class="min-w-24"
-        :disabled="
-          !selectedActivityId || logData[logData.length - 1]?.activity === selectedActivityId
-        "
-        @click="createLog({ activity: selectedActivityId!, timestamp: Date.now() })"
-      >
-        log
-      </UiButton>
-    </div>
+    <LogDrawer
+      :item="selectedLog"
+      @close="selectedLog = undefined"
+      @create="onCreateLog"
+      @update="onUpdateLog"
+      @remove="onRemoveLog"
+    />
+    <UiButton
+      class="self-center rounded-full"
+      size="icon-lg"
+      @click="
+        selectedLog = {
+          id: '',
+          activity: '',
+          timestamp: !isToday(selectedDateValue, getLocalTimeZone())
+            ? selectedDateValue.toDate(getLocalTimeZone()).getTime()
+            : Date.now(),
+        }
+      "
+    >
+      <Plus />
+    </UiButton>
   </div>
   <UiSonner position="bottom-center" />
 </template>

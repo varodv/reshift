@@ -7,8 +7,15 @@ export function useLog() {
 
   function create(payload: Omit<Log, 'id'>) {
     const newLog = createEntity(payload);
-    data.value = [...data.value, newLog].sort((logA, logB) => logA.timestamp - logB.timestamp);
+    data.value = data.value.concat(newLog).sort((logA, logB) => logA.timestamp - logB.timestamp);
     return newLog;
+  }
+
+  function update(payload: Log) {
+    data.value = data.value
+      .filter(log => log.id !== payload.id)
+      .concat(payload)
+      .sort((logA, logB) => logA.timestamp - logB.timestamp);
   }
 
   function remove(id: Log['id']) {
@@ -18,6 +25,7 @@ export function useLog() {
   return {
     data,
     create,
+    update,
     remove,
   };
 }
