@@ -96,11 +96,7 @@ watch(
         />
       </div>
       <UiDrawerFooter>
-        <UiButton
-          v-if="!formItem.id"
-          :disabled="!valid"
-          @click="emits('create', formItem)"
-        >
+        <UiButton v-if="!formItem.id" :disabled="!valid" @click="emits('create', formItem)">
           {{ $t('log.create.action') }}
         </UiButton>
         <template v-else>
