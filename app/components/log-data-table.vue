@@ -17,13 +17,13 @@ const { data: activityData } = useActivity();
 const columns: Array<ColumnDef<Log>> = [
   {
     accessorKey: 'activity',
-    header: () => h('span', { class: 'grow text-center truncate' }, 'Activity'),
+    header: () => h('span', { class: 'grow text-center truncate' }, $t('log.activity.label')),
     cell: ({ getValue }: any) =>
       h('span', { class: 'grow text-center truncate' }, getActivityName(getValue())),
   },
   {
     accessorKey: 'timestamp',
-    header: () => h('span', { class: 'grow text-center truncate' }, 'Time'),
+    header: () => h('span', { class: 'grow text-center truncate' }, $t('log.timestamp.label')),
     cell: ({ getValue }: any) =>
       h('span', { class: 'grow text-center truncate' }, new Date(getValue()).toLocaleTimeString()),
   },
@@ -44,7 +44,7 @@ function getActivityName(activityId: Activity['id']) {
     <template #empty>
       <UiTableEmpty :colspan="columns.length">
         <slot name="empty-content">
-          No logs.
+          {{ $t('log.empty.default') }}
         </slot>
       </UiTableEmpty>
     </template>

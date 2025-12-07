@@ -5,11 +5,16 @@
   "today": "today",
   "log": {
     "empty": {
+      "default": "No logs.",
       "date": "No logs for the selected date."
     },
     "activity": {
+      "label": "Activity",
       "placeholder": "Select an activity",
       "stop": "STOP"
+    },
+    "timestamp": {
+      "label": "Time"
     },
     "create": {
       "title": "Add log",
