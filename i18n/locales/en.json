@@ -1,4 +1,7 @@
 {
+  "table": {
+    "empty": "No results."
+  },
   "today": "today",
   "log": {
     "empty": {

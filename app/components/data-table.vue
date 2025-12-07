@@ -28,7 +28,11 @@ const table = useVueTable({
   <UiTable :class="props.class">
     <UiTableHeader>
       <UiTableRow v-for="headerGroup in table.getHeaderGroups()" :key="headerGroup.id">
-        <UiTableHead v-for="header in headerGroup.headers" :key="header.id">
+        <UiTableHead
+          v-for="header in headerGroup.headers"
+          :key="header.id"
+          :style="{ width: `${100 / columns.length}%` }"
+        >
           <FlexRender
             v-if="!header.isPlaceholder"
             :render="header.column.columnDef.header"
@@ -45,7 +49,11 @@ const table = useVueTable({
           :data-state="row.getIsSelected() ? 'selected' : undefined"
           @click="emits('itemClick', row.original)"
         >
-          <UiTableCell v-for="cell in row.getVisibleCells()" :key="cell.id">
+          <UiTableCell
+            v-for="cell in row.getVisibleCells()"
+            :key="cell.id"
+            :style="{ width: `${100 / columns.length}%` }"
+          >
             <FlexRender :render="cell.column.columnDef.cell" :props="cell.getContext()" />
           </UiTableCell>
         </UiTableRow>
@@ -53,7 +61,7 @@ const table = useVueTable({
       <template v-else>
         <slot name="empty">
           <UiTableEmpty :colspan="columns.length">
-            No results.
+            {{ $t('table.empty') }}
           </UiTableEmpty>
         </slot>
       </template>
