@@ -16,6 +16,9 @@
     "timestamp": {
       "label": "Time"
     },
+    "waterfall": {
+      "label": "Waterfall"
+    },
     "create": {
       "title": "Add log",
       "action": "Add",
