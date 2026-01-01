@@ -16,6 +16,10 @@
     "timestamp": {
       "label": "Time"
     },
+    "duration": {
+      "hours": "{value} h",
+      "minutes": "{value} min"
+    },
     "waterfall": {
       "label": "Waterfall"
     },
