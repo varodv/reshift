@@ -104,6 +104,7 @@ function getSegmentColorClass(segment: Segment) {
   <TransitionGroup
     tag="div"
     name="log-data-bar"
+    appear
     :class="cn('overflow-hidden flex h-3.5 rounded-full bg-gray-300', props.class)"
   >
     <span
@@ -116,7 +117,18 @@ function getSegmentColorClass(segment: Segment) {
 </template>
 
 <style scoped>
-.log-data-bar-move {
-  transition: all 500ms ease;
+.log-data-bar-move,
+.log-data-bar-enter-active,
+.log-data-bar-leave-active {
+  transition: all 0.5s ease;
+}
+
+.log-data-bar-enter-from,
+.log-data-bar-leave-to {
+  width: 0 !important;
+}
+
+.log-data-bar-leave-active {
+  position: absolute;
 }
 </style>
