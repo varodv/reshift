@@ -2,7 +2,6 @@
 import type { ColumnDef } from '@tanstack/vue-table';
 import type { HTMLAttributes } from 'vue';
 import type { Activity, Log } from '../types';
-import LogDataBar from './log-data-bar.vue';
 
 const props = defineProps<{
   data: Array<Log>;
@@ -27,16 +26,6 @@ const columns: Array<ColumnDef<Log>> = [
     header: () => h('span', { class: 'grow text-center truncate' }, $t('log.timestamp.label')),
     cell: ({ getValue }: any) =>
       h('span', { class: 'grow text-center truncate' }, new Date(getValue()).toLocaleTimeString()),
-  },
-  {
-    id: 'waterfall',
-    header: () => h('span', { class: 'grow text-center truncate' }, $t('log.waterfall.label')),
-    cell: ({ row }) =>
-      h(LogDataBar, {
-        class: 'grow',
-        data: props.data,
-        highlightFilter: log => log.id === row.original.id,
-      }),
   },
 ];
 

@@ -20,9 +20,6 @@
       "hours": "{value} h",
       "minutes": "{value} min"
     },
-    "waterfall": {
-      "label": "Waterfall"
-    },
     "create": {
       "title": "Add log",
       "action": "Add",

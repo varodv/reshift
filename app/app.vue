@@ -7,6 +7,8 @@ import 'vue-sonner/style.css';
 
 const { data: logData, create: createLog, update: updateLog, remove: removeLog } = useLog();
 
+const logDataBarStack = useLocalStorage('rs-log-data-bar-stack', true);
+
 const selectedDateValue = ref(today(getLocalTimeZone()) as any);
 
 const selectedLog = ref<Log | undefined>();
@@ -39,6 +41,15 @@ function onRemoveLog() {
 <template>
   <div class="flex flex-col h-full gap-4 p-4">
     <DatePicker v-model="selectedDateValue" />
+    <div v-if="filteredLogData.length" class="flex flex-col gap-2">
+      <LogDataBar
+        class="cursor-pointer"
+        :data="filteredLogData"
+        :stack="logDataBarStack"
+        @click="logDataBarStack = !logDataBarStack"
+      />
+      <LogDataLegend :data="filteredLogData" />
+    </div>
     <LogDataTable class="grow" :data="filteredLogData" @item-click="selectedLog = $event">
       <template #empty-content>
         {{ $t('log.empty.date') }}
