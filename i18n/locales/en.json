@@ -17,6 +17,7 @@
       "label": "Time"
     },
     "duration": {
+      "label": "Duration",
       "hours": "{value} h",
       "minutes": "{value} min"
     },

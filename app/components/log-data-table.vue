@@ -12,7 +12,9 @@ const emits = defineEmits<{
   itemClick: [item: Log];
 }>();
 
+const { locale } = useI18n();
 const { data: activityData } = useActivity();
+const { getDuration, formatDuration } = useLog();
 
 const columns: Array<ColumnDef<Log>> = [
   {
@@ -25,7 +27,25 @@ const columns: Array<ColumnDef<Log>> = [
     accessorKey: 'timestamp',
     header: () => h('span', { class: 'grow text-center truncate' }, $t('log.timestamp.label')),
     cell: ({ getValue }: any) =>
-      h('span', { class: 'grow text-center truncate' }, new Date(getValue()).toLocaleTimeString()),
+      h(
+        'span',
+        { class: 'grow text-center truncate' },
+        new Date(getValue()).toLocaleTimeString(locale.value, {
+          hour: '2-digit',
+          minute: '2-digit',
+          hour12: false,
+        }),
+      ),
+  },
+  {
+    id: 'duration',
+    header: () => h('span', { class: 'grow text-center truncate' }, $t('log.duration.label')),
+    cell: ({ row }: any) =>
+      h(
+        'span',
+        { class: 'grow text-center truncate' },
+        row.original.activity === 'STOP' ? '-' : formatDuration(getDuration(row.original)),
+      ),
   },
 ];
 
