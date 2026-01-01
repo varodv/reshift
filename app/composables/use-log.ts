@@ -40,7 +40,7 @@ export function useLog() {
       parts.push(t('log.duration.hours', { value: hours }));
     }
     const minutes = Math.floor((value / (1000 * 60)) % 60);
-    if (minutes > 0) {
+    if (minutes > 0 || !parts.length) {
       parts.push(t('log.duration.minutes', { value: minutes }));
     }
     return parts.join(' ');
